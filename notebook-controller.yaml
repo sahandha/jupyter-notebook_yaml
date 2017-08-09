@@ -1,0 +1,32 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: notebook-controller
+  namespace: jupyter
+spec:
+  replicas: 1
+  selector:
+    component: jupyter
+  template:
+    metadata:
+      labels:
+        component: jupyter
+    spec:
+      containers:
+        - name: jupyter-notebook
+          image: sahandha/jupyter:kube
+          command: ["/bin/sh","-c"]
+          args: ["/opt/spark/bin/pyspark --master spark://spark-master:7077"]
+          ports:
+            - containerPort: 8888 
+          volumeMounts:
+            - mountPath: /external/spark-jupyter
+              name: nfsvol
+          resources:
+            requests:
+              cpu: 100m
+      volumes:
+        - name: nfsvol
+          persistentVolumeClaim:
+            claimName: notebook-nfs2
+
