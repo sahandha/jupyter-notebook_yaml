@@ -5,4 +5,4 @@ metadata:
   namespace: jupyter
 spec:
   type: ExternalName
-  externalName: spark-master.spark-jupyter.svc.cluster.local
+  externalName: spark-master.spark.svc.cluster.local

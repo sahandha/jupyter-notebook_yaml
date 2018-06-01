@@ -15,6 +15,7 @@ spec:
       containers:
         - name: jupyter-notebook
           image: sahandha/jupyter:kube
+          imagePullPolicy: Never
           command: ["/bin/sh","-c"]
           args: ["/opt/spark/bin/pyspark --master spark://spark-master:7077"]
           ports:
